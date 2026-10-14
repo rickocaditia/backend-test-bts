@@ -152,5 +152,12 @@ app.delete('/api/products/:id', authenticateToken, (req, res) => {
   res.json({ message: "Produk berhasil dihapus", data: deleted[0] });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server berjalan di port ${PORT}`));
+const PORT = process.env.PORT || 2026;
+
+// Jalankan app.listen hanya jika dijalankan secara lokal (bukan di Vercel)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`Server berjalan di port ${PORT}`));
+}
+
+// Wajib diexport agar Vercel bisa membaca aplikasi Express Anda
+module.exports = app;
